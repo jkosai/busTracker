@@ -3,7 +3,6 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoiamtvc2FpIiwiYSI6ImNsMmtvMTBlMDA1azIzYnBqbmhvM
 var map;
 var markers = [];
 
-// load map
 function init(){
 
 	var element = document.getElementById('map');
@@ -11,12 +10,11 @@ function init(){
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v10',
         center: [-71.104081, 42.365554],
-        zoom: 14,
+        zoom: 10,
       });
   	addMarkers();
 }
 
-// Add bus markers to map
 async function addMarkers(){
 	var locations = await getBusLocations();
 	locations.forEach(function(bus){
@@ -28,11 +26,9 @@ async function addMarkers(){
 			addMarker(bus);			
 		}
 	});
-	console.log(new Date());
 	setTimeout(addMarkers,1000);
 }
 
-// Request bus data from MBTA
 async function getBusLocations(){
 	var url = 'https://api-v3.mbta.com/vehicles?api_key=ca34f7b7ac8a445287cab52fb451030a&filter[route]=1&include=trip';	
 	var response = await fetch(url);
